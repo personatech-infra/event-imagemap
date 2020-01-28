@@ -76,18 +76,16 @@ spec:
   } // options
 
   stages {
-    // It doesn't look like there's a linter, or tests currently ?
-    //   stage('maps') {
-    //     when { not { changeset 'config/**' } }
-    //     steps {
-    //       container('node') {
-    //         sh 'npm install'
-    //         sh 'npm run test'
-    //         sh 'npm run lint'
-    //       } //container
-    //     } //steps 
-    //   } //stage
-    // } // stage
+    stage('maps') {
+    when { not { changeset 'config/**' } }
+      steps {
+        container('node') {
+          sh 'npm install'
+          // sh 'npm run test'
+          // sh 'npm run lint'
+        } //container
+      } //steps 
+    } // stage
 
     stage('Staging: Deploy Preparation') {
       when {
