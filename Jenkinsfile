@@ -120,17 +120,15 @@ spec:
           not { changeRequest() }
         }
       }
-      stage('maps') {
-        steps {
-          container('ruby') {
-            withEnv(["REVISION=$GIT_COMMIT_SHORT"]) {
-              configFileProvider([configFile(fileId: '9097dae8-46b2-4e97-8121-a8b4e3bbd656', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                sh 'gcloud builds submit . --machine-type=n1-highcpu-32 --project pt-development-220816 --timeout=20m -t gcr.io/pt-staging/maps:$REVISION'
-              } // configFileProvider
-            } // withEnv
-          } // container
-        } // steps
-      } // stage
+      steps {
+        container('ruby') {
+          withEnv(["REVISION=$GIT_COMMIT_SHORT"]) {
+            configFileProvider([configFile(fileId: '9097dae8-46b2-4e97-8121-a8b4e3bbd656', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+              sh 'gcloud builds submit . --machine-type=n1-highcpu-32 --project pt-development-220816 --timeout=20m -t gcr.io/pt-staging/maps:$REVISION'
+            } // configFileProvider
+          } // withEnv
+        } // container
+      } // steps
     } // stage
 
     stage('Staging: Deploy') {
