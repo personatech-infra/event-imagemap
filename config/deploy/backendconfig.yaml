@@ -1,0 +1,18 @@
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+  name: maps
+  namespace: maps
+  annotations:
+    beta.cloud.google.com/backend-config:
+      '{"default": "maps"}'
+spec:
+  cdn:
+    enabled: false
+  connectionDraining:
+    drainingTimeoutSec: 60
+  timeoutSec: 60
+  iap:
+    enabled: false
+    oauthclientCredentials:
+      secretName: google-oauth-keys

@@ -1,0 +1,38 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: maps
+  namespace: maps
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: maps
+spec:
+  rules:
+  - host: <%= app_domain %>
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: app
+          servicePort: 443
+  tls:
+  - secretName: website-tls
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: maps-v6
+  namespace: maps
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: maps-v6
+spec:
+  rules:
+  - host: <%= app_domain %>
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: app
+          servicePort: 443
+  tls:
+  - secretName: website-tls
