@@ -138,26 +138,24 @@ spec:
           not { changeRequest() }
         }
       }
-      stage('maps') {
-        steps {
-          container(name: 'ruby', shell: '/bin/bash') {
-            withEnv(["CLUSTER=gke_pt-staging_us-central1_staging", "REVISION=$GIT_COMMIT_SHORT", "KUBECONFIG=~/.kube/config", "APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=true", "LANG=en_US.UTF-8", "LANGUAGE=en_US:en", "LC_ALL=en_US.UTF-8"]) {
-              ansiColor('xterm') {
-                configFileProvider([configFile(fileId: '9097dae8-46b2-4e97-8121-a8b4e3bbd656', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                  dir("config/deploy") {
-                    sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
-                    sh 'gcloud container -q clusters get-credentials staging --region us-central1 --project pt-staging'
-                    sh '''
-                      cp pt-staging/secrets.ejson . || true
-                      REVISION=$GIT_COMMIT_SHORT kubernetes-deploy maps ${CLUSTER} --template-dir=. --bindings=@pt-staging/bindings.yaml
-                    '''
-                  }
-                } // configFileProvider
-              } // anisColor
-            } // withEnv
-          } // container
-        } // steps
-      } // stage
+      steps {
+        container(name: 'ruby', shell: '/bin/bash') {
+          withEnv(["CLUSTER=gke_pt-staging_us-central1_staging", "REVISION=$GIT_COMMIT_SHORT", "KUBECONFIG=~/.kube/config", "APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=true", "LANG=en_US.UTF-8", "LANGUAGE=en_US:en", "LC_ALL=en_US.UTF-8"]) {
+            ansiColor('xterm') {
+              configFileProvider([configFile(fileId: '9097dae8-46b2-4e97-8121-a8b4e3bbd656', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                dir("config/deploy") {
+                  sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
+                  sh 'gcloud container -q clusters get-credentials staging --region us-central1 --project pt-staging'
+                  sh '''
+                    cp pt-staging/secrets.ejson . || true
+                    REVISION=$GIT_COMMIT_SHORT kubernetes-deploy maps ${CLUSTER} --template-dir=. --bindings=@pt-staging/bindings.yaml
+                  '''
+                }
+              } // configFileProvider
+            } // anisColor
+          } // withEnv
+        } // container
+      } // steps
     } // stage
   } // stages
 
