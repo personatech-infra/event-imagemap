@@ -57,31 +57,31 @@ export function loadMap(map, maplevel, allMapData, imageUrlParam) {
     case 10:
       map.flyTo([originaly, x], -1, {
         animate: true,
-        duration: 1 // in seconds
+        duration: 0.5 // in seconds
       });
       break;
     case 11:
       map.flyTo([originaly, x], -1, {
         animate: true,
-        duration: 1 // in seconds
+        duration: 0.5 // in seconds
       });
       break;
     case 20:
-      map.flyTo([originaly-200, x+100], -1, {
+      map.flyTo([originaly-400, x+200], -1, {
         animate: true,
-        duration: 1 // in seconds
+        duration: 0.5 // in seconds
       });
       break;
     case 30:
       map.flyTo([originaly-400, x+500], 0), {
         animate: true,
-        duration: 1 // in seconds
+        duration: 0.5 // in seconds
       };
       break;
     default:
       map.flyTo([originaly, x], -1, {
         animate: true,
-        duration: 1 // in seconds
+        duration: 0.5 // in seconds
       });
   }
 
