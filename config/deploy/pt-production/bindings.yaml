@@ -1,0 +1,6 @@
+---
+project:      pt-production
+server_port:  80
+app_domain: maps.shoptalk.com
+hpa_min_replicas: 2
+hpa_max_replicas: 4

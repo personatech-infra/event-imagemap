@@ -1,0 +1,20 @@
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: app
+  namespace: maps
+spec:
+  acme:
+    config:
+    - dns01:
+        provider: pt-global
+      domains:
+      - <%= app_domain %>
+  commonName: <%= app_domain %>
+  dnsNames:
+  - <%= app_domain %>
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  secretName: website-tls
